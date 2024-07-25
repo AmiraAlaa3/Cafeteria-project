@@ -76,17 +76,21 @@ $message = isset($_GET['message']) ? $_GET['message'] : '';
             </div>
         </div>
     </nav>
-    <main class="container mt-5" id="allProducts">
-        <h3 class="display-5 mb-3">All Products</h3>
+    <main class="container mt-5 pageHeader">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="display-5 mb-0">All Products</h3>
+            <a href="add_product.php" class="btn btn-primary">Add Product</a>
+        </div>
         <?php if ($message): ?>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <?php echo $message; ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+        </div>
         <?php endif; ?>
-        <table class="table table-striped">
+        <div class="table-responsive-lg">
+        <table class="table my-4">
             <thead>
-                <tr>
+                <tr class="table-dark">
                     <th>Id</th>
                     <th>Product</th>
                     <th>Price</th>
@@ -111,6 +115,8 @@ $message = isset($_GET['message']) ? $_GET['message'] : '';
                 <?php } ?>
             </tbody>
         </table>
+        </div>
+      
 
         <nav aria-label="Page navigation">
             <ul class="pagination justify-content-center">

@@ -2,7 +2,7 @@ body{
     font-family: "Comfortaa", sans-serif;
     height: 100vh !important;
 }
-#allProducts{
+.pageHeader{
     margin-top: 100px !important;
 }
 th,
