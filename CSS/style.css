@@ -1,0 +1,19 @@
+body{
+    font-family: "Comfortaa", sans-serif;
+    height: 100vh !important;
+}
+#allProducts{
+    margin-top: 100px !important;
+}
+th,
+td{
+   text-align: center;
+   vertical-align: middle;
+}
+footer{
+    position: fixed;
+    z-index: 9999;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
