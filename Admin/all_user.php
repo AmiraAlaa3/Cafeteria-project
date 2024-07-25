@@ -1,4 +1,6 @@
 <!-- screen 6 -->
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,7 +53,11 @@
         </div>
     </nav>
     <!-- main  -->
-    <main>
+    <main class="container mt-5 pageHeader">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="display-5 mb-0">All User</h3>
+            <a href="add_product.php" class="btn btn-primary">Add User</a>
+        </div>
         
     </main>
     <footer class="footer bg-dark text-light p-2">
