@@ -1,6 +1,11 @@
 <!-- screen 7 -->
+<?php
+$message = isset($_GET['message']) ? $_GET['message'] : '';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,49 +21,52 @@
 </head>
 
 <body>
-    <nav class='navbar navbar-expand-lg bg-dark p-lg-3 fixed-top' data-bs-theme="dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Cafeteria</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="all_product.php">Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="all_user.php">Users</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Manual Order</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Checks</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav me-auto me-lg-0 mb-2 mb-lg-0">
-                    <li class="nav-item d-flex align-items-center me-2 mb-lg-0 mb-sm-2">
-                        <img src="../images/admin.png" alt="admin img" width="40" height="40" class="rounded-circle d-inline-block align-text-top">
-                        <span class="text-light px-2">Admin</span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn  btn-outline-danger" href="#">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php include '../includes/header.php';?>
     <!-- main  -->
-    <main>
-        
+    <main class="container mt-5 marginTop">
+        <h3 class="display-5 mb-3">Add User</h3>
+        <?php if ($message): ?>
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                <?php echo $message; ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php endif; ?>
+    
+        <form class="container" action="process_add.php" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input class="form-control" name="Name" id="name" type="text" placeholder="enter name of user">
+            </div>
+
+            <div class="mb-3">
+                <label for="Email1" class="form-label">Email address</label>
+                <input type="email" name="email" class="form-control" id="Email1" placeholder="enter  email of user" aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+                <label for="Password1" class="form-label">Password</label>
+                <input type="password" name="passsword" class="form-control" id="Password1" placeholder="enter user password">
+            </div>
+            <div class="mb-3">
+                <label for="confirm_password" class="form-label">confirm password</label>
+                <input class="form-control" name="Confirm_Password" id="confirm_password" type="password" placeholder="enter password of user">
+            </div>
+            <div class="mb-3">
+                <label for="room_no" class="form-label">Room No</label>
+                <input class="form-control" name="Room_No" id="room_no" type="number" placeholder="enter Room number">
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Profile Picture</label>
+                <input class="form-control" type="file" name="Image" id="image">
+            </div>
+
+            <button type="submit" name="add_user" class="btn btn-primary">Submit</button>
+        </form>
     </main>
     <footer class="footer bg-dark text-light p-2">
         <p class="text-center m-0">&copy; Cafeteria Shop. All Rights Reserved.</p>
     </footer>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
+
 </html>

@@ -58,7 +58,6 @@ $message = isset($_GET['message']) ? $_GET['message'] : '';
         <table class="table my-4">
             <thead>
                 <tr class="table-dark">
-                    <th>Id</th>
                     <th>Product</th>
                     <th>Price</th>
                     <th>Image</th>
@@ -68,7 +67,6 @@ $message = isset($_GET['message']) ? $_GET['message'] : '';
             <tbody>
                 <?php foreach ($products as $product) { ?>
                     <tr>
-                        <td><?php echo $product['product_id']; ?></td>
                         <td><?php echo $product['product_name']; ?></td>
                         <td><?php echo $product['product_price']; ?></td>
                         <td>
