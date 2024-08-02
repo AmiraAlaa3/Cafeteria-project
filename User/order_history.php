@@ -3,7 +3,10 @@
 session_start();
 // Include the database connection file
 require('../includes/db2.php');
- 
+$query = 'SELECT * FROM users ';
+$stmt = $connection->prepare($query);
+$stmt->execute();
+$orders = $stmt->fetch(PDO::FETCH_ASSOC);
 //user login
 if (isset($_SESSION['user_email'])) {
     $user_email = $_SESSION['user_email'];
@@ -38,7 +41,8 @@ $offset = ($currentPage - 1) * $itemsPerPage;
 // Get the start and end dates from POST or GET request
 $startDate = isset($_POST['startDate']) ? $_POST['startDate'] : (isset($_GET['startDate']) ? $_GET['startDate'] : '');
 $endDate = isset($_POST['endDate']) ? $_POST['endDate'] : (isset($_GET['endDate']) ? $_GET['endDate'] : '');
-
+$user_acc =isset($_POST['user-acc']) ? $_POST['user-acc'] : (isset($_GET['user-acc']) ? $_GET['user-acc'] : '');
+$stmt->bindParam(':name', $user_acc);
 // Construct the SQL query to count total items for pagination
 $totalQuery = "SELECT COUNT(*) FROM orders";
 if ($startDate && $endDate) {
@@ -52,7 +56,9 @@ if ($startDate && $endDate) {
 $totalStmt->execute();
 $totalItems = $totalStmt->fetchColumn();
 $totalPages = ceil($totalItems / $itemsPerPage);
-
+if($user_acc){
+    $query .= " WHERE (SELECT user_id FROM users WHERE user_name = :name)";
+}
 // Construct the SQL query to fetch orders based on date range and pagination
 $query = "SELECT * FROM orders";
 if ($startDate && $endDate) {
@@ -144,7 +150,12 @@ $message = isset($_GET['message']) ? $_GET['message'] : '';
                 <label class="ms-5 me-1">End Date:</label>
                 <input type="date" id="endDate" name="endDate" class="placeholder-label me-5" value="<?php echo ($endDate); ?>">
                 <br><br>
-                
+                <select class="form-select" name="user-acc" aria-label="Default select example" style="width:40%; height:45px; padding-left:8px;font-size:16px;">
+                    <?php
+                    foreach ($orders as $order) {
+                        echo "<option value='$order'>$order</option>"
+                    ?>
+                    </select>
                 <button type="submit" class="btn btn-view">View</button>
             </form>
         </div>
@@ -161,8 +172,7 @@ $message = isset($_GET['message']) ? $_GET['message'] : '';
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Loop through orders and display each order in a table row -->
-                    <?php foreach ($orders as $order) { ?>
+                    
                         <tr>
                             <td><?php echo $order['order_date']; ?></td>
                             <td><?php echo $order['status']; ?></td>
