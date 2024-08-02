@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('../includes/db.php');
+require('../includes/db2.php');
 
 $itemsPerPage = 3; 
 $currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
