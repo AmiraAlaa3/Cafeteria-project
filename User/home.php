@@ -1,6 +1,6 @@
 <!-- screen 2 -->
 <?php
-require('../includes/db.php');
+require('../includes/db2.php');
 
 $query = "select * FROM products";
 $sqlQuery = $connection->prepare($query);
@@ -123,9 +123,8 @@ $products = $sqlQuery->fetchAll(PDO::FETCH_ASSOC);
                         <h5 class="menu-price"><?php echo ($product['product_price']); ?></h5>
                      </div>
                      <div class="col-12 mt-3 text-center">
-                        <h5 class="text-center mb-4"><?php echo ($product['product_name']); ?></h5>
-
-                        <button class="addtocart"><i class="fas fa-cart-plus"></i> Add To Cart</button>
+                        <h5 class="text-center mb-4 product_name"><?php echo ($product['product_name']); ?></h5>
+                        <button class="addtocart" data-product-id="<?php echo ($product['product_id']); ?>"><i class="fas fa-cart-plus"></i> Add To Cart</button>
                      </div>
                   </div>
                </div>
@@ -154,9 +153,11 @@ $products = $sqlQuery->fetchAll(PDO::FETCH_ASSOC);
          <div class="select-room d-flex justify-content-between align-items-center mb-3">
             <h6 class="mb-1 me-5">Room</h6>
             <select name="room" id="room" class="form-control">
-               <option value="room1">Room 1</option>
-               <option value="room2">Room 2</option>
-               <option value="room3">Room 3</option>
+               <option value="1">1</option>
+               <option value="2">2</option>
+               <option value="3">3</option>
+               <option value="2">4</option>
+               <option value="3">5</option>
             </select>
          </div>
       </div>
@@ -165,7 +166,7 @@ $products = $sqlQuery->fetchAll(PDO::FETCH_ASSOC);
          <span id="total_price">0</span>
       </div>
       <div class="btn_control d-flex justify-content-end">
-         <button class="checkout" onclick="checkOut();">Confirm</button>
+         <button class="checkout">Confirm</button>
       </div>
    </div>
 
