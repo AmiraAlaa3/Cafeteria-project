@@ -1,6 +1,6 @@
 <?php
 // Include your database connection file
-include '../includes/db_connect.php';
+include '../includes/db.php';
 
 $message = isset($_GET['message']) ? $_GET['message'] : '';
 
