@@ -1,7 +1,10 @@
 body {
     font-family: "Comfortaa", sans-serif !important;
 }
-
+.marginTop {
+    margin-top: 100px !important;
+    margin-bottom: 100px !important;
+}
 .container-fluid.nav-bar, .nav-bar.container-sm, .nav-bar.container-md, .nav-bar.container-lg, .nav-bar.container-xl {
     position: absolute !important;
     z-index: 9;
@@ -302,7 +305,25 @@ body {
     text-align: center;
     cursor: pointer;
 }
-
+/* history order page */
+.order_nav{
+         position: relative;
+        background: #33211D;
+}
+.header-color{
+    color: #DA9F5B;
+}
+.table-color{
+    background-color: #33211D !important;
+}
+.btn-view{
+    background:#DA9F5B;
+    color: #000;
+    cursor:pointer;
+}
+.btn-view:hover{
+    background:#e5a65e;
+}
 @media (max-width: 991.98px) {
     .container-fluid.nav-bar, .nav-bar.container-sm, .nav-bar.container-md, .nav-bar.container-lg, .nav-bar.container-xl {
         position: relative;

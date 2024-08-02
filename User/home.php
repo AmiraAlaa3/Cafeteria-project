@@ -12,8 +12,8 @@ if (isset($_SESSION['user_email'])) {
    $user = $sqlGetUser->fetch(PDO::FETCH_ASSOC);
    if ($user) {
       $user_name = $user['user_name'];
-      $user_image = "../Admin/uploaded_img/" . $user['pic'];
-      $user_id = 2; // $user['user_id'];
+      $user_image = !empty($user['pic']) ? "../Admin/uploaded_img/" . $user['pic'] : "../Admin/uploaded_img/default.png";
+      $user_id = $user['user_id'];
    } else {
       $user_name = "Guest";
       $user_image = "../Admin/uploaded_img/admin.png";
@@ -22,20 +22,24 @@ if (isset($_SESSION['user_email'])) {
    $user_name = "Guest";
    $user_image = "../Admin/uploaded_img/admin.png";
 }
-$user_id = 3;
+
 // Fetch all orders for the current user
-$sqlOrder = "SELECT orders.order_id, products.product_name, products.product_img, order_items.quantity, order_items.price 
-             FROM orders
-             JOIN order_items ON order_items.order_id = orders.order_id
+$sqlOrder = "SELECT orders.order_id, products.product_name, products.product_img, order_items.price 
+             FROM orders JOIN order_items ON order_items.order_id = orders.order_id
              JOIN products ON order_items.product_id = products.product_id
-             WHERE orders.user_id = :user_id";
+             WHERE orders.user_id = :user_id
+             AND orders.order_id = (
+                SELECT MAX(order_id) 
+                FROM orders 
+                WHERE user_id = :user_id
+               )";
 
 $ResultOfOrder = $connection->prepare($sqlOrder);
 $ResultOfOrder->bindParam(':user_id', $user_id);
 $ResultOfOrder->execute();
 $lastOrders = $ResultOfOrder->fetchAll(PDO::FETCH_ASSOC);
 
-// Fetch all products (if needed for some other purpose)
+// Fetch all products 
 $query = "SELECT * FROM products";
 $sqlQuery = $connection->prepare($query);
 $sqlQuery->execute();
@@ -89,7 +93,7 @@ $products = $sqlQuery->fetchAll(PDO::FETCH_ASSOC);
                      <span class="text-light px-2"><?php echo $user_name; ?></span>
                   </li>
                   <li class="nav-item">
-                     <a class="btn  btn-danger" href="#">Logout</a>
+                     <a class="btn  btn-danger" href="logout.php">Logout</a>
                   </li>
                   <li class="nav-item">
                      <a class="ms-4 cart" id="show_cart" href="#"><i class="fa-solid fa-cart-shopping"></i></a>

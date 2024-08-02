@@ -196,6 +196,7 @@ function checkOut() {
             cart = [];
             updateCartUI();
             saveCartToLocalStorage();
+            location.reload();
         } else {
             alert('Failed to place the order: ' + data.message);
         }
