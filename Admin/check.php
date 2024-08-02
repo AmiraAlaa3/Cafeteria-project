@@ -1,11 +1,9 @@
 <!-- screen 9 -->
 
 <?php 
-require('../includes/db.php');
+require('../includes/db2.php');
 $sql = "SELECT id, name ,amount FROM users";
 $result = $connection->query($sql);
-
-?>
 
 ?>
  <!DOCTYPE html>

@@ -1,8 +1,46 @@
 <!-- screen 2 -->
 <?php
+session_start();
 require('../includes/db2.php');
 
-$query = "select * FROM products";
+if (isset($_SESSION['user_email'])) {
+   $user_email = $_SESSION['user_email'];
+   $getUser = "SELECT user_name, pic, user_id FROM users WHERE email = :email";
+   $sqlGetUser = $connection->prepare($getUser);
+   $sqlGetUser->bindParam(':email', $user_email);
+   $sqlGetUser->execute();
+   $user = $sqlGetUser->fetch(PDO::FETCH_ASSOC);
+   if ($user) {
+      $user_name = $user['user_name'];
+      $user_image = !empty($user['pic']) ? "../Admin/uploaded_img/" . $user['pic'] : "../Admin/uploaded_img/default.png";
+      $user_id = $user['user_id'];
+   } else {
+      $user_name = "Guest";
+      $user_image = "../Admin/uploaded_img/admin.png";
+   }
+} else {
+   $user_name = "Guest";
+   $user_image = "../Admin/uploaded_img/admin.png";
+}
+
+// Fetch all orders for the current user
+$sqlOrder = "SELECT orders.order_id, products.product_name, products.product_img, order_items.price 
+             FROM orders JOIN order_items ON order_items.order_id = orders.order_id
+             JOIN products ON order_items.product_id = products.product_id
+             WHERE orders.user_id = :user_id
+             AND orders.order_id = (
+                SELECT MAX(order_id) 
+                FROM orders 
+                WHERE user_id = :user_id
+               )";
+
+$ResultOfOrder = $connection->prepare($sqlOrder);
+$ResultOfOrder->bindParam(':user_id', $user_id);
+$ResultOfOrder->execute();
+$lastOrders = $ResultOfOrder->fetchAll(PDO::FETCH_ASSOC);
+
+// Fetch all products 
+$query = "SELECT * FROM products";
 $sqlQuery = $connection->prepare($query);
 $sqlQuery->execute();
 $products = $sqlQuery->fetchAll(PDO::FETCH_ASSOC);
@@ -51,11 +89,11 @@ $products = $sqlQuery->fetchAll(PDO::FETCH_ASSOC);
                </ul>
                <ul class="navbar-nav me-auto me-lg-0 mb-2 mb-lg-0">
                   <li class="nav-item d-flex align-items-center me-2 mb-lg-0 mb-sm-2">
-                     <img src="../images/admin.png" alt="admin img" width="40" height="40" class="rounded-circle d-inline-block align-text-top">
-                     <span class="text-light px-2">Admin</span>
+                     <img src="<?php echo $user_image; ?>" alt="<?php echo $user_name; ?>" width="40" height="40" class="rounded-circle d-inline-block align-text-top">
+                     <span class="text-light px-2"><?php echo $user_name; ?></span>
                   </li>
                   <li class="nav-item">
-                     <a class="btn  btn-danger" href="#">Logout</a>
+                     <a class="btn  btn-danger" href="logout.php">Logout</a>
                   </li>
                   <li class="nav-item">
                      <a class="ms-4 cart" id="show_cart" href="#"><i class="fa-solid fa-cart-shopping"></i></a>
@@ -104,13 +142,44 @@ $products = $sqlQuery->fetchAll(PDO::FETCH_ASSOC);
       </div>
    </div>
    <!-- Carousel End -->
+   <!-- last order -->
+   <div class="container-fluid pt-5">
+      <div class="container">
+         <div class="section-title">
+            <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">Last your orders</h4>
+            <h4 class="display-4">Order Summary</h4>
+         </div>
+         <!-- Row for orders -->
 
+         <?php if (!empty($lastOrders)) : ?>
+            <div class="row my-3">
+               <?php foreach ($lastOrders as $order) : ?>
+                  <div class="col-lg-2 col-md-4 mb-5 product_card">
+                     <div class="row align-items-center">
+                        <div class="col-12 Product_img">
+                           <img class="w-100 rounded-circle mb-5 mb-sm-0 p-2" src="../Admin/uploaded_img/<?php echo htmlspecialchars($order['product_img']); ?>" alt="<?php echo htmlspecialchars($order['product_name']); ?>" height="150">
+                           <h5 class="menu-price"><?php echo ($order['price']); ?></h5>
+                        </div>
+                        <div class="col-12 mt-3 text-center">
+                           <h5 class="text-center mb-4 product_name"><?php echo ($order['product_name']); ?></h5>
+                        </div>
+                     </div>
+                  </div>
+
+               <?php endforeach; ?>
+            </div>
+         <?php else : ?>
+            <p>No orders found for this user.</p>
+         <?php endif; ?>
+
+      </div>
+   </div>
    <!-- menu start -->
    <div class="container-fluid pt-5">
       <div class="container">
          <div class="section-title">
             <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">Menu & Pricing</h4>
-            <h1 class="display-4">Competitive Pricing</h1>
+            <h4 class="display-4">Competitive Pricing</h4>
          </div>
 
          <!-- Row for Products -->
