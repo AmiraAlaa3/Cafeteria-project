@@ -1,6 +1,6 @@
 <?php
 // Include your database connection file
-include '../includes/db.php';
+include '../includes/db2.php';
 
 $message = '';
 
@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Insert the new category into the database using PDO
     $query = "INSERT INTO categories (category_name) VALUES (:category_name)";
-    $stmt = $conn->prepare($query);
+    $stmt = $connection->prepare($query);
     $stmt->bindParam(':category_name', $category_name);
 
     if ($stmt->execute()) {
