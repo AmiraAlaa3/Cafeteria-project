@@ -1,4 +1,13 @@
 <!-- screen 9 -->
+
+<?php 
+require('../includes/db.php');
+$sql = "SELECT id, name ,amount FROM users";
+$result = $connection->query($sql);
+
+?>
+
+?>
  <!DOCTYPE html>
  <html lang="en">
  <head>
@@ -23,6 +32,69 @@
             <option value="2">Two</option>
             <option value="3">Three</option>
         </select>
+        <input type="submit" name="submit" value="Filter Orders">
+        <?php 
+        if ($result->num_rows > 0) {
+            echo `<table class="table w-100 table-striped">
+            <thead>
+            <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Total Amount</th>
+            </tr>
+            </thead`;
+            while ($row1 = $result->fetch_assoc()) {
+                echo "<tr>
+                <td>" . $row1['name'] . "</td>
+                <td>" . $row1['total'] . "</td>
+              </tr>";
+    }
+    echo "</table>";
+            }
+        
+        ?>
+        <?php
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
+        $user_name = $_POST['user'];
+        $start_date = $_POST['start_date'];
+        $end_date = $_POST['end_date'];
+        $query = "SELECT order_num, total FROM orders WHERE user_id = (SELECT user_id FROM users WHERE user_name = $user_name ?";
+        if (!empty($start_date) && !empty($end_date)) {
+            $query .= " AND order_date BETWEEN ? AND ?";
+        }
+        $stmt = $conn->prepare($query);
+        if (!empty($start_date) && !empty($end_date)) {
+            $stmt->bind_param("iss", $user_id, $start_date, $end_date);
+        } else {
+            $stmt->bind_param("i", $user_id);
+        }
+
+        // Execute query
+        $stmt->execute();
+        $result2 = $stmt->get_result();
+
+        // Check results
+        if ($result2->num_rows > 0) {
+            echo "<table border='1'>
+                    <tr>
+                        <th>Order Number</th>
+                        <th>Total</th>
+                    </tr>";
+            while ($row = $result2->fetch_assoc()) {
+                echo "<tr>
+                        <td>" . $row['order_num'] . "</td>
+                        <td>" . $row['total'] . "</td>
+                      </tr>";
+            }
+            echo "</table>";
+        } else {
+            echo "No orders found.";
+        }
+
+        // Close statement
+        $stmt->close();
+    }
+    $conn->close();
+    ?>
     </div>
     <div class="container mt-5 name">
        <table class="table w-100 table-striped">
