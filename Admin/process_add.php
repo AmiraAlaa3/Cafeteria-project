@@ -1,6 +1,6 @@
 <?php  
 
-require('../includes/db.php');
+require('../includes/db2.php');
 
 if (isset($_POST['add_user'])) {
     $name = $_POST['Name'];
