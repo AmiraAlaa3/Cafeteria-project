@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 require('../includes/db2.php');
 
@@ -33,34 +33,63 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-</head>
-<body>
-    <div class="f-page mt-5 d-flex align-items-center justify-content-center flex-column g-4">
-        <p class="title m-auto" style="font-size:45px;">Cafeteria</p>
-        <form class="container" method="POST">
-            <div class="inputs d-flex justify-content-between m-auto align-items-center mt-4 mb-4" style="width:70%;">
-                <label style="font-size: 28px;" for="mail">Email:</label>
-                <input style="width:75%;border:0; padding-left: 10px; height: 40px; font-size: 16px;" class="border-bottom" type="email" name="mail" id="mailInput" placeholder="Enter your Email" required>
-            </div>
-            <div class="inputs d-flex justify-content-between align-items-center m-auto mt-4 mb-4" style="width:70%;">
-                <label style="font-size: 28px;" for="pass">Password:</label>
-                <input style="width:75%;border:0; padding-left: 10px; height: 40px; font-size: 16px;" class="border-bottom" type="password" name="pass" id="passInput" placeholder="Enter your Password" required>
-            </div>
-            <button style="border:0;border-radius:8px; width:90px; height:45px; margin: 50px 0 40px 46%; position:relative" type="submit">Login</button>
-            <?php  
-            if (isset($error)) {
-                echo '<p class="text-danger">' . $error . '</p>';
-            }
-            ?>
-        </form>
-        <a href="./reset_password.php" class="m-auto" style="font-size:18px;">Forgot password?</a>
-    </div>
+    <meta charset="utf-8">
+    <title>test login</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free Website Template" name="keywords">
+    <meta content="Free Website Template" name="description">
 
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../CSS/style.min.css" rel="stylesheet"></head>
+<body>
+    <div class="container-fluid my-5">
+        <div class="container">
+            <div class="reservation position-relative overlay-top overlay-bottom">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 my-5 my-lg-0">
+                        <div class="p-5">
+                            <div class="mb-4">
+                                <h1 class="display-3 text-primary">Welcome to Cafeteria</h1>
+                            </div>
+                            <p class="text-white">We’re delighted to see you here. <br> Please log in to savor your favorite brews, access special offers,
+                                 and more. New here? Sign up to join our café community and start enjoying all the perks!</p>
+                            <ul class="list-inline text-white m-0">
+                                <li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Enjoy our selection of rare coffee blends</li>
+                                <li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Relax in our inviting and cozy café environment</li>
+                                <li class="py-2"><i class="fa fa-check text-primary mr-3"></i>You can track your order on our website</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="text-center p-5" style="background: rgba(51, 33, 29, .8);">
+                            <h1 class="text-white mb-4 mt-5">Log in</h1>
+                            <form class="mb-5">
+                                <div class="form-group">
+                                    <input type="email" class="form-control bg-transparent border-primary p-4" placeholder="Email"
+                                        required="required" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control bg-transparent border-primary p-4" placeholder="password"
+                                        required="required" />
+                                </div>
+                                <div>
+                                    <button class="btn btn-primary btn-block font-weight-bold py-3" type="submit">log in</button>
+                                </div>
+                                <a href="reset_password.php" class="m-auto" style="font-size:18px;">Forgot password?</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     
 </body>
 </html>
