@@ -31,7 +31,7 @@ function displayCart() {
     cartSection.classList.add('show-cart');
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+
     const savedCart = JSON.parse(localStorage.getItem('cart'));
     if (savedCart) {
         cart = savedCart;
@@ -45,13 +45,14 @@ document.addEventListener("DOMContentLoaded", () => {
         button.addEventListener("click", () => {
             // Get product details
             const productCard = button.closest(".product_card");
-            const productName = productCard.querySelector("h5").textContent;
+            const productName = productCard.querySelector(".product_name").textContent;
             const productPrice = parseFloat(productCard.querySelector(".menu-price").textContent.replace("$", ""));
             const productImg = productCard.querySelector("img").src;
-            const productId = index; 
-
+            const product_id = button.getAttribute("data-product-id");; 
+            const indexInCart = index;
             const product = {
-                id: productId,
+                id: indexInCart,
+                productId:product_id,
                 name: productName,
                 price: productPrice,
                 quantity: 1,
@@ -156,4 +157,52 @@ document.addEventListener("DOMContentLoaded", () => {
             saveCartToLocalStorage();
         }
     }
-});
+
+// send order 
+document.querySelector(".checkout").addEventListener("click", checkOut);
+
+function checkOut() {
+    const order = {
+        user_id:4,
+        products: cart.map(product => ({
+            id: product.productId,
+            name: product.name,
+            price: product.price,
+            quantity: product.quantity
+        })),
+        total: document.getElementById("total_price").textContent,
+        room: document.getElementById("room").value,
+        notes: document.getElementById("notes").value
+    };
+
+  
+    fetch('submit_order.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(order)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+        if (data.status == 'success') {
+            alert('Order placed successfully!');
+            cart = [];
+            updateCartUI();
+            saveCartToLocalStorage();
+            location.reload();
+        } else {
+            alert('Failed to place the order: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
+}
+

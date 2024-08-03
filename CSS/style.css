@@ -1,20 +1,98 @@
-body{
+body {
     font-family: "Comfortaa", sans-serif;
     min-height: 100vh !important;
 }
-.marginTop{
+
+.marginTop {
     margin-top: 100px !important;
     margin-bottom: 200px !important;
 }
+
 th,
-td{
-   text-align: center;
-   vertical-align: middle;
+td {
+    text-align: center;
+    vertical-align: middle;
 }
-footer{
+
+footer {
     position: fixed;
     z-index: 9999;
     bottom: 0;
     left: 0;
     right: 0;
+}
+footer {
+    position: fixed;
+    z-index: 9999;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.product-card {
+    border: none; /* Remove border */
+    padding: 10px;
+    background-color: transparent; /* Remove background color */
+    text-align: center;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.product-card img {
+    border-radius: 50%; /* Make image circular */
+    width: 100px; /* Adjust size */
+    height: 100px; /* Adjust size */
+    object-fit: cover; /* Maintain aspect ratio */
+}
+
+.product-card .price {
+    position: absolute;
+    margin: 0;
+    top: -1px;
+    right: 20px;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 45px;
+    color: #33211D;
+    background: #efe4d9;        
+}
+
+.product-card .product-details {
+    text-align: center;
+    margin-top: 29px; /* Space below image */
+}
+
+.product-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 0;
+}
+
+.product-col {
+    flex: 1;
+    max-width: calc(100% / 6 - 10px);
+}
+
+.no-border {
+    border: none !important;
+}
+
+.table {
+    margin-top: 80px;
+}
+
+#styleofform {
+    padding: 25px;
+    border-radius: 20px;
+}
+
+#styleofmain {
+    margin-top: 120px;
+    margin-bottom: 80px;
+    width: 524px;
+    border-radius: 29px;
 }

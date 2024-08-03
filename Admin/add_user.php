@@ -23,7 +23,7 @@ $message = isset($_GET['message']) ? $_GET['message'] : '';
 <body>
     <?php include '../includes/header.php';?>
     <!-- main  -->
-    <main class="container mt-5 marginTop">
+    <main class="container marginTop">
         <h3 class="display-5 mb-3">Add User</h3>
         <?php if ($message): ?>
             <div class="alert alert-info alert-dismissible fade show" role="alert">
@@ -32,7 +32,7 @@ $message = isset($_GET['message']) ? $_GET['message'] : '';
         </div>
         <?php endif; ?>
     
-        <form class="container" action="process_add.php" method="post" enctype="multipart/form-data">
+        <form class="container shadow-lg ccc p-5" action="process_add.php" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
                 <input class="form-control" name="Name" id="name" type="text" placeholder="enter name of user">
