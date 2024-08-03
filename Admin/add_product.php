@@ -123,6 +123,7 @@ if ($stmt) {
 <body>
     <?php include '../includes/header.php';?>
     <!-- main  -->
+
     <main class="container mt-5 marginTop">
         <h3 class="display-5 mb-5">Add Product</h3>
         <?php if ($message): ?>
