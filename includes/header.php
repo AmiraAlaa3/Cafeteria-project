@@ -15,11 +15,11 @@ if (isset($_SESSION['user_email'])) {
       $user_id = $user['user_id'];
    } else {
       $user_name = "Guest";
-      $user_image = "uploaded_img/admin.png";
+      $user_image = "uploaded_img/default.png";
    }
 } else {
    $user_name = "Guest";
-   $user_image = "uploaded_img/admin.png";
+   $user_image = "uploaded_img/default.png";
 }
 ?>
 <nav class='navbar navbar-expand-lg bg-dark p-lg-3 fixed-top' data-bs-theme="dark">
