@@ -13,7 +13,7 @@ if (isset($_SESSION['user_email'])) {
    if ($user) {
       $user_name = $user['user_name'];
       $user_image = !empty($user['pic']) ? "../Admin/uploaded_img/" . $user['pic'] : "../Admin/uploaded_img/default.png";
-      $user_id = $user['user_id'];
+      $id = $user['user_id'];
    } else {
       $user_name = "Guest";
       $user_image = "../Admin/uploaded_img/admin.png";
@@ -27,15 +27,15 @@ if (isset($_SESSION['user_email'])) {
 $sqlOrder = "SELECT orders.order_id, products.product_name, products.product_img, order_items.price 
              FROM orders JOIN order_items ON order_items.order_id = orders.order_id
              JOIN products ON order_items.product_id = products.product_id
-             WHERE orders.user_id = :user_id
+             WHERE orders.user_id = :id
              AND orders.order_id = (
                 SELECT MAX(order_id) 
                 FROM orders 
-                WHERE user_id = :user_id
+                WHERE user_id = :id
                )";
 
 $ResultOfOrder = $connection->prepare($sqlOrder);
-$ResultOfOrder->bindParam(':user_id', $user_id);
+$ResultOfOrder->bindParam(':id', $id);
 $ResultOfOrder->execute();
 $lastOrders = $ResultOfOrder->fetchAll(PDO::FETCH_ASSOC);
 
