@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 require('../includes/db2.php');
 
 if (isset($_SESSION['user_email'])) {
@@ -43,7 +43,7 @@ if (isset($_SESSION['user_email'])) {
                         <a class="nav-link" href="Manual_order.php">Manual Order</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Checks</a>
+                        <a class="nav-link" href="check.php">Checks</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav me-auto me-lg-0 mb-2 mb-lg-0">
