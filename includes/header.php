@@ -1,5 +1,5 @@
 <?php
-// session_start();
+session_start();
 require('../includes/db2.php');
 
 if (isset($_SESSION['user_email'])) {

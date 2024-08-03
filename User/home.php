@@ -193,7 +193,9 @@ $products = $sqlQuery->fetchAll(PDO::FETCH_ASSOC);
                      </div>
                      <div class="col-12 mt-3 text-center">
                         <h5 class="text-center mb-4 product_name"><?php echo ($product['product_name']); ?></h5>
-                        <button class="addtocart" data-product-id="<?php echo ($product['product_id']); ?>"><i class="fas fa-cart-plus"></i> Add To Cart</button>
+                        <button class="addtocart" id="add_order"
+                        data-user-id="<?php echo $id?>"
+                        data-product-id="<?php echo ($product['product_id']); ?>"><i class="fas fa-cart-plus"></i> Add To Cart</button>
                      </div>
                   </div>
                </div>

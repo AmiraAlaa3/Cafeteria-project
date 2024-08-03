@@ -26,12 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $orderStmt->bindParam(':orderDate', $orderDate);
         $orderStmt->execute();
 
-        $orderId = $connection->lastInsertId();
+        $orderNumber = $connection->lastInsertId();
 
         foreach ($products as $product) {
-            $query = "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (:orderId, :productId, :quantity, :price)";
+            $query = "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (:orderNumber, :productId, :quantity, :price)";
             $stmt = $connection->prepare($query);
-            $stmt->bindParam(':orderId', $orderId);
+            $stmt->bindParam(':orderNumber', $orderNumber);
             $stmt->bindParam(':productId', $product['id']);
             $stmt->bindParam(':quantity', $product['quantity']);
             $stmt->bindParam(':price', $product['price']);

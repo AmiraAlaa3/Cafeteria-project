@@ -130,7 +130,7 @@ $message = isset($_GET['message']) ? $_GET['message'] : '';
                     <input type="date" id="endDate" style="width:30%;" name="endDate" class="placeholder-label me-5" value="<?php echo htmlspecialchars($endDate); ?>">
                 </div>
 
-                <button type="submit" class="btn btn-view my-4">View</button>
+                <button type="submit" class="btn btn-primary my-4">View</button>
             </form>
         </div>
 
