@@ -1,18 +1,69 @@
+<!-- screen 3 -->
+<?php
+require('../includes/db2.php');
+?>
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "cafeteria";
+
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $sql = "SELECT id, name FROM Users";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $productSql = "SELECT id, name, price FROM Products";
+    $productStmt = $conn->prepare($productSql);
+    $productStmt->execute();
+    $products = $productStmt->fetchAll(PDO::FETCH_ASSOC);
+
+} catch(PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+}
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Rye&display=swap" rel="stylesheet">
-    <!-- bootstrap -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- css -->
-    <link rel="stylesheet" href="../CSS/style.css">
-    <title>Admin: Home</title>
+    <meta charset="UTF-8">
+    <title>Order Page</title>
+    <style>
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .product {
+            width: 100px;
+            text-align: center;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
-   <?php include '../includes/header.php'?>
+    <form method="post" action="">
+        <label for="user">Add to user:</label>
+        <select name="user" id="user">
+            <?php foreach ($users as $user): ?>
+                <option value="<?= $user['id']; ?>"><?= htmlspecialchars($user['name']); ?></option>
+            <?php endforeach; ?>
+        </select>
+        
+        <div class="product-container">
+            <?php foreach ($products as $product): ?>
+                <div class="product">
+                    <img src="images/<?= $product['name']; ?>.png" alt="<?= htmlspecialchars($product['name']); ?>" width="50">
+                    <p><?= htmlspecialchars($product['name']); ?></p>
+                    <p><?= htmlspecialchars($product['price']); ?> LE</p>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </form>
 </body>
 </html>
