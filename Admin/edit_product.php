@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php include '../includes/header.php';?>
     <div class="container marginTop">
         <h3 class="display-5 mb-3">Edit Product</h3>
-        <form action="edit_product.php?product_id=<?php echo $product_id; ?>" method="post" enctype="multipart/form-data">
+        <form class="container shadow-lg p-5" action="edit_product.php?product_id=<?php echo $product_id; ?>" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="product_name" class="form-label">Product Name</label>
                 <input type="text" class="form-control" id="product_name" name="product_name"

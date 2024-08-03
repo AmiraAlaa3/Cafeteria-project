@@ -1,6 +1,11 @@
 <?php
 // Include your database connection file
-include '../includes/db.php';
+include '../includes/db2.php';
+
+// Enable error reporting
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 $message = isset($_GET['message']) ? $_GET['message'] : '';
 
@@ -10,32 +15,52 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $category_id = $_POST['Category'];
     $image = $_FILES['Product_Picture'];
 
+    // Check if the file upload has errors
+    if ($image['error'] !== UPLOAD_ERR_OK) {
+        $message = "File upload error: " . $image['error'];
+        echo $message;  // Output error for debugging
+        exit;
+    }
+
     // Handle the file upload
-    $target_dir = "../uploads/";
+    $target_dir = "uploaded_img/";
     $target_file = $target_dir . basename($image["name"]);
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+    // Ensure the target directory exists
+    if (!is_dir($target_dir)) {
+        if (!mkdir($target_dir, 0755, true)) {
+            $message = "Failed to create directory: $target_dir";
+            echo $message;  // Output error for debugging
+            exit;
+        }
+    }
 
     // Check if image file is an actual image or fake image
     $check = getimagesize($image["tmp_name"]);
     if ($check !== false) {
         $uploadOk = 1;
     } else {
+        $message = "File is not an image.";
         $uploadOk = 0;
     }
 
     // Check if file already exists
     if (file_exists($target_file)) {
+        $message = "Sorry, file already exists.";
         $uploadOk = 0;
     }
 
     // Check file size
     if ($image["size"] > 500000) {
+        $message = "Sorry, your file is too large.";
         $uploadOk = 0;
     }
 
     // Allow certain file formats
-    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+    if (!in_array($imageFileType, ['jpg', 'jpeg', 'png', 'gif'])) {
+        $message = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
         $uploadOk = 0;
     }
 
@@ -43,12 +68,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($uploadOk == 0) {
         $message = "Sorry, your file was not uploaded.";
     } else {
+        // Move uploaded file
         if (move_uploaded_file($image["tmp_name"], $target_file)) {
             $product_img = basename($image["name"]);
 
             // Insert the product data into the database using PDO
             $query = "INSERT INTO products (product_name, product_price, category_id, product_img) VALUES (:product_name, :product_price, :category_id, :product_img)";
-            $stmt = $conn->prepare($query);
+            $stmt = $connection->prepare($query);
             $stmt->bindParam(':product_name', $name);
             $stmt->bindParam(':product_price', $price);
             $stmt->bindParam(':category_id', $category_id);
@@ -68,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // Fetch categories from the database using PDO
 $categories = [];
 $query = "SELECT category_id, category_name FROM categories";
-$stmt = $conn->query($query);
+$stmt = $connection->query($query);
 
 if ($stmt) {
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -76,6 +102,8 @@ if ($stmt) {
     }
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -95,7 +123,8 @@ if ($stmt) {
 <body>
     <?php include '../includes/header.php';?>
     <!-- main  -->
-    <main class="container marginTop">
+
+    <main class="container mt-5 marginTop">
         <h3 class="display-5 mb-5">Add Product</h3>
         <?php if ($message): ?>
             <div class="alert alert-info alert-dismissible fade show" role="alert">
@@ -103,7 +132,7 @@ if ($stmt) {
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         <?php endif; ?>
-        <form class="container" action="" method="post" enctype="multipart/form-data">
+        <form class="container shadow-lg ccc p-5" action="" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="name" class="form-label">Product</label>
                 <input class="form-control" name="Name" id="name" type="text" placeholder="Enter name of product" required>
@@ -133,6 +162,6 @@ if ($stmt) {
         <p class="text-center m-0">&copy; Cafeteria Shop. All Rights Reserved.</p>
     </footer>
     <!-- bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js" integrity="sha512-tY9XCrm5Jlnt90T0DdQJ0GOMyk2I5kcfMDSPPQcQu1nTjFszAIt4nt2QcvE8QunO8yJ3CNlf4q3XmtBQy2E3Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 </html>
