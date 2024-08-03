@@ -122,51 +122,19 @@ $message = isset($_GET['message']) ? $_GET['message'] : '';
 
 <body>
       <!-- Navbar Start -->
-    <div class="container-fluid p-0 order_nav">
-      <nav class="navbar navbar-expand-lg bg-none navbar-dark p-3">
-         <div class="container-fluid">
-            <a href="index.html" class="navbar-brand px-lg-4 m-0">
-               <h1 class="m-0 display-5 text-white">Cafeteria</h1>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-               <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                     <a class="nav-link active" aria-current="page" href="home.php">Home</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="order_history.php">My Order</a>
-                  </li>
-               </ul>
-               <ul class="navbar-nav me-auto me-lg-0 mb-2 mb-lg-0">
-                  <li class="nav-item d-flex align-items-center me-2 mb-lg-0 mb-sm-2">
-                     <img src="<?php echo $user_image; ?>" alt="<?php echo $user_name; ?>" width="40" height="40" class="rounded-circle d-inline-block align-text-top">
-                     <span class="text-light px-2"><?php echo $user_name; ?></span>
-                  </li>
-                  <li class="nav-item">
-                     <a class="btn  btn-danger" href="logout.php">Logout</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="ms-4 cart" id="show_cart" href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-                  </li>
-               </ul>
-            </div>
-         </div>
-      </nav>
-   </div>
+      <?php include '../includes/header.php';?>
    <!-- Navbar End -->
 
     <!-- Main content -->
     <main class="container my-5 marginTop">
         <div class=" mb-3 ">
             <div class="title w-100 d-flex justify-content-center  g-4 align-items-center mb-3 flex-column">
-                <h3 class="display-5 m-auto header-color">My Orders</h3>
+                <h3 class="display-5 m-auto header-color">Checks</h3>
             </div>
             <!-- Date selection form -->
             <form method="POST"  class="d-flex align-items-center mb-3 flex-wrap flex-column">
             <select class="form-select mb-3" name="user-acc" aria-label="Default select example" style="width:70%; height:45px; padding-left:8px;font-size:16px;">
+            <option value="" selected>Choose user</option>
                     <?php
                     $totalQuery = 'SELECT * FROM users ';
                     $stmt = $connection->prepare($totalQuery);
