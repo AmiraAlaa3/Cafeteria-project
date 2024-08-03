@@ -1,4 +1,5 @@
 <?php
+session_start();
 require('../includes/db2.php');
 
 // Fetch users
@@ -34,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $orderStmt->bindParam(':orderDate', $orderDate);
     $orderStmt->execute();
 
-    $orderId = $connection->lastInsertId(); // Get the last inserted order ID
+    $orderId = $connection->lastInsertId(); 
 
     // Insert order items
     foreach ($cartItems as $product) {
@@ -48,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Redirect or display a success message
-    header('Location: home.php?message=Order placed successfully');
+    header('Location: Manual_order.php?message=Order placed successfully');
     exit();
 }
 ?>

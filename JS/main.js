@@ -48,7 +48,7 @@ function displayCart() {
             const productName = productCard.querySelector(".product_name").textContent;
             const productPrice = parseFloat(productCard.querySelector(".menu-price").textContent.replace("$", ""));
             const productImg = productCard.querySelector("img").src;
-            const product_id = button.getAttribute("data-product-id");; 
+            const product_id = button.getAttribute("data-product-id");
             const indexInCart = index;
             const product = {
                 id: indexInCart,
@@ -160,10 +160,10 @@ function displayCart() {
 
 // send order 
 document.querySelector(".checkout").addEventListener("click", checkOut);
-
+const user_id = document.getElementById("add_order").getAttribute("data-user-id");
 function checkOut() {
     const order = {
-        user_id:4,
+        user_id:user_id,
         products: cart.map(product => ({
             id: product.productId,
             name: product.name,

@@ -1,5 +1,6 @@
 <!-- screen 7 -->
 <?php
+session_start();
 $message = isset($_GET['message']) ? $_GET['message'] : '';
 ?>
 

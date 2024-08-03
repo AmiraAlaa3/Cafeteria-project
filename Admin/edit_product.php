@@ -1,4 +1,5 @@
 <?php
+session_start();
 require('../includes/db2.php');
 if (!isset($_GET["product_id"])) {
     die("Product ID is required.");

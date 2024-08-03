@@ -3,25 +3,27 @@
 session_start();
 require('../includes/db2.php');
 
+
 if (isset($_SESSION['user_email'])) {
-   $user_email = $_SESSION['user_email'];
-   $getUser = "SELECT user_name, pic, user_id FROM users WHERE email = :email";
-   $sqlGetUser = $connection->prepare($getUser);
-   $sqlGetUser->bindParam(':email', $user_email);
-   $sqlGetUser->execute();
-   $user = $sqlGetUser->fetch(PDO::FETCH_ASSOC);
-   if ($user) {
-      $user_name = $user['user_name'];
-      $user_image = !empty($user['pic']) ? "../Admin/uploaded_img/" . $user['pic'] : "../Admin/uploaded_img/default.png";
-      $id = $user['user_id'];
-   } else {
-      $user_name = "Guest";
-      $user_image = "../Admin/uploaded_img/admin.png";
-   }
-} else {
-   $user_name = "Guest";
-   $user_image = "../Admin/uploaded_img/admin.png";
-}
+    $user_email = $_SESSION['user_email'];
+    $getUser = "SELECT user_name, pic, user_id FROM users WHERE email = :email";
+    $sqlGetUser = $connection->prepare($getUser);
+    $sqlGetUser->bindParam(':email', $user_email);
+    $sqlGetUser->execute();
+    $user = $sqlGetUser->fetch(PDO::FETCH_ASSOC);
+    if ($user) {
+       $user_name = $user['user_name'];
+       $user_image = !empty($user['pic']) ? "../Admin/uploaded_img/" . $user['pic'] : "../Admin/uploaded_img/default.png";
+       $id = $user['user_id'];
+    } else {
+       $user_name = "Guest";
+       $user_image = "../Admin/uploaded_img/admin.png";
+    }
+ } else {
+    $user_name = "Guest";
+    $user_image = "../Admin/uploaded_img/admin.png";
+ }
+
 
 // Fetch all orders for the current user
 $sqlOrder = "SELECT orders.order_id, products.product_name, products.product_img, order_items.price 
@@ -34,12 +36,13 @@ $sqlOrder = "SELECT orders.order_id, products.product_name, products.product_img
                 WHERE user_id = :id
                )";
 
+
 $ResultOfOrder = $connection->prepare($sqlOrder);
 $ResultOfOrder->bindParam(':id', $id);
 $ResultOfOrder->execute();
 $lastOrders = $ResultOfOrder->fetchAll(PDO::FETCH_ASSOC);
 
-// Fetch all products 
+// Fetch all products (if needed for some other purpose)
 $query = "SELECT * FROM products";
 $sqlQuery = $connection->prepare($query);
 $sqlQuery->execute();
@@ -93,7 +96,7 @@ $products = $sqlQuery->fetchAll(PDO::FETCH_ASSOC);
                      <span class="text-light px-2"><?php echo $user_name; ?></span>
                   </li>
                   <li class="nav-item">
-                     <a class="btn  btn-danger" href="logout.php">Logout</a>
+                     <a class="btn  btn-danger" href="#">Logout</a>
                   </li>
                   <li class="nav-item">
                      <a class="ms-4 cart" id="show_cart" href="#"><i class="fa-solid fa-cart-shopping"></i></a>
@@ -193,9 +196,7 @@ $products = $sqlQuery->fetchAll(PDO::FETCH_ASSOC);
                      </div>
                      <div class="col-12 mt-3 text-center">
                         <h5 class="text-center mb-4 product_name"><?php echo ($product['product_name']); ?></h5>
-                        <button class="addtocart" id="add_order"
-                        data-user-id="<?php echo $id?>"
-                        data-product-id="<?php echo ($product['product_id']); ?>"><i class="fas fa-cart-plus"></i> Add To Cart</button>
+                        <button class="addtocart" data-product-id="<?php echo ($product['product_id']); ?>"><i class="fas fa-cart-plus"></i> Add To Cart</button>
                      </div>
                   </div>
                </div>

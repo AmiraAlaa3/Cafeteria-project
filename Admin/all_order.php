@@ -37,7 +37,7 @@ $bodyOrders = $ResultOfBody->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <?php include '../includes/header.php'; ?>
     <div class="container mt-4 marginTop">
-        <h1>All Orders</h1>
+        <h3 class="display-5 mb-3">All Orders</h1>
         <?php foreach ($headOrders as $headRow) : ?>
             <div class="order-container mb-4">
                 <h2>Order ID: <?php echo htmlspecialchars($headRow["order_id"]); ?></h2>
