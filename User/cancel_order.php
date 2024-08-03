@@ -43,7 +43,7 @@ $sqlCheckOrder->execute();
 $order = $sqlCheckOrder->fetch(PDO::FETCH_ASSOC);
 
 if (!$order) {
-    header('Location: orders.php?message=Order+not+found+or+cannot+be+canceled');
+    header('Location: order_history.php?message=Order+not+found+or+cannot+be+canceled');
     exit();
 }
 
