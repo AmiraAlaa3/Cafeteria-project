@@ -96,7 +96,7 @@ if ($stmt) {
     <?php include '../includes/header.php';?>
     <!-- main  -->
     <main class="container marginTop">
-        <h3 class="display-5 mb-5">Add Products</h3>
+        <h3 class="display-5 mb-5">Add Product</h3>
         <?php if ($message): ?>
             <div class="alert alert-info alert-dismissible fade show" role="alert">
                 <?php echo $message; ?>
