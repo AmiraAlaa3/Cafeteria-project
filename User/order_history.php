@@ -138,7 +138,7 @@ $message = isset($_GET['message']) ? $_GET['message'] : '';
             <h3 class="display-5 mb-0 header-color">My Orders</h3>
             <br>
             <!-- Date selection form -->
-            <form method="POST" action="orders.php" class="d-flex align-items-center mb-3">
+            <form method="POST" action="order_history.php" class="d-flex align-items-center mb-3">
                 <label class="me-1">Start Date:</label>
                 <input type="date" id="startDate" name="startDate" class="placeholder-label me-5" value="<?php echo ($startDate); ?>">
                 <br><br>

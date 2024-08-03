@@ -28,7 +28,7 @@ $user_id = $user['user_id'];
 
 // Check if the order ID is provided
 if (!isset($_GET['id'])) {
-    header('Location: orders.php?message=No+order+ID+provided');
+    header('Location: order_history.php?message=No+order+ID+provided');
     exit();
 }
 
@@ -53,9 +53,9 @@ $sqlDeleteOrder = $connection->prepare($deleteOrder);
 $sqlDeleteOrder->bindParam(':order_id', $order_id);
 
 if ($sqlDeleteOrder->execute()) {
-    header('Location: orders.php?message=Order+successfully+deleted');
+    header('Location: order_history.php?message=Order+successfully+deleted');
 } else {
-    header('Location: orders.php?message=Failed+to+delete+order');
+    header('Location: order_history.php?message=Failed+to+delete+order');
 }
 
 exit();

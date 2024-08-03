@@ -40,7 +40,7 @@ if (isset($_SESSION['user_email'])) {
                         <a class="nav-link" href="all_user.php">Users</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Manual Order</a>
+                        <a class="nav-link" href="Manual_order.php">Manual Order</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Checks</a>
