@@ -40,7 +40,7 @@ $ResultOfOrder->execute();
 $lastOrders = $ResultOfOrder->fetchAll(PDO::FETCH_ASSOC);
 
 // Fetch all products 
-$query = "SELECT * FROM products";
+$query = "select * from products where product_status = 'available'";
 $sqlQuery = $connection->prepare($query);
 $sqlQuery->execute();
 $products = $sqlQuery->fetchAll(PDO::FETCH_ASSOC);

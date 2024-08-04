@@ -61,6 +61,7 @@ $message = isset($_GET['message']) ? $_GET['message'] : '';
                     <th>Product</th>
                     <th>Price</th>
                     <th>Image</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -73,6 +74,12 @@ $message = isset($_GET['message']) ? $_GET['message'] : '';
                             <img src="uploaded_img/<?php echo $product['product_img']; ?>" alt="Product Image" class="img-thumbnail" style="width: 80px;">
                         </td>
                         <td>
+                            <?php echo htmlspecialchars(ucfirst($product['product_status'])); ?>
+                        </td>
+                        <td>
+                            <a class='btn btn-sm btn-outline-info ml-2' href="product_status.php?product_id=<?php echo $product['product_id']; ?>">
+                                <?php echo $product['product_status'] === 'available' ? 'Make Unavailable' : 'Make Available'; ?>
+                            </a>
                             <a class='btn btn-sm btn-primary ml-2' href="edit_product.php?product_id=<?php echo $product['product_id']; ?>">Edit</a>
                             <a class='btn btn-sm btn-danger' href="delete_product.php?product_id=<?php echo $product['product_id']; ?>">Delete</a>
                         </td>
