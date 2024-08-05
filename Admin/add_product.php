@@ -1,5 +1,5 @@
 <?php
-// Include your database connection file
+session_start();
 include '../includes/db2.php';
 
 // Enable error reporting

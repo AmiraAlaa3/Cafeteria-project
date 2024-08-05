@@ -112,8 +112,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <img class="w-100 rounded-circle mb-5 mb-sm-0 p-2" src="../Admin/uploaded_img/<?php echo $product['product_img']; ?>" alt="<?php echo htmlspecialchars($product['product_name']); ?>" height="150">
                                 </div>
                                 <div class="col-12 mt-3 text-center">
-                                    <h5 class="menu-price">Price <?php echo ($product['product_price']); ?> EG</h5>
                                     <h5 class="text-center mb-4 product_name"><?php echo ($product['product_name']); ?></h5>
+                                    <h5 class="menu-price mb-3">Price <?php echo ($product['product_price']); ?> EG</h5>
                                     <button class="addtocart btn btn-primary" data-product-id="<?php echo ($product['product_id']); ?>"><i class="fas fa-cart-plus"></i> Add To Cart</button>
                                 </div>
                             </div>
@@ -146,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="submit" class="btn btn-primary">Place Order</button>
     </form>
 
-    <footer class="footer bg-dark text-light p-2 mt-4">
+    <footer class="bg-dark text-light p-2 mt-4">
         <p class="text-center m-0">&copy; Cafeteria Shop. All Rights Reserved.</p>
     </footer>
 

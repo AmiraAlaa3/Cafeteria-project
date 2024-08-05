@@ -1,5 +1,4 @@
 <?php
-session_start();
 require('../includes/db2.php');
 
 if (isset($_SESSION['user_email'])) {
@@ -31,7 +30,7 @@ if (isset($_SESSION['user_email'])) {
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="home.php">Home</a>
+                        <a class="nav-link active" aria-current="page" href="Home.php">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="all_product.php">Products</a>
@@ -44,6 +43,9 @@ if (isset($_SESSION['user_email'])) {
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="check.php">Checks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="all_order.php">Orders</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav me-auto me-lg-0 mb-2 mb-lg-0">
