@@ -14,21 +14,6 @@ td {
     vertical-align: middle;
 }
 
-footer {
-    position: fixed;
-    z-index: 9999;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
-footer {
-    position: fixed;
-    z-index: 9999;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
-
 .product-card {
     border: none; /* Remove border */
     padding: 10px;
@@ -84,7 +69,15 @@ footer {
 .table {
     margin-top: 80px;
 }
-
+.icon{
+    background-color: #da9f5bb9;
+    width: 80px;
+    padding: 20px;
+    border-radius: 12px;
+}
+.icon i{ 
+    font-size:30px 
+}
 #styleofform {
     padding: 25px;
     border-radius: 20px;
